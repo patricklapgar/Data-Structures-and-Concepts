@@ -22,7 +22,7 @@ public class GroceryList {
 
     public void printGroceryList(){
         // size is a method that returns the length of the array
-        System.out.println("You have " + groceryList.size());
+        System.out.println("You have " + groceryList.size() + " items in your grocery list!");
         for(int i = 0; i < groceryList.size(); i++){
             // Use the get method to retrieve information from an array list
             System.out.println((i + 1) + ": " + groceryList.get(i));
@@ -39,5 +39,18 @@ public class GroceryList {
     public void removeGroceryItem(int position){
         String theItem = groceryList.get(position);
         groceryList.remove(theItem);
+    }
+
+    // This function will be used to find an item on the grocery list
+    public String findItem(String searchItem){
+        // The contains keyword is a boolean method that returns true or false depending on whether or not the item is in the array list
+        // boolean exists = groceryList.contains(searchItem);
+
+        int position = groceryList.indexOf(searchItem);
+        if(position >= 0){
+            return groceryList.get(position);
+        }
+
+        return null;
     }
 }
