@@ -20,6 +20,11 @@ public class GroceryList {
         groceryList.add(item);
     }
 
+    // You can also write methods that return array lists
+    public ArrayList<String> getGroceryList() {
+        return groceryList;
+    }
+
     public void printGroceryList(){
         // size is a method that returns the length of the array
         System.out.println("You have " + groceryList.size() + " items in your grocery list!");
@@ -29,28 +34,43 @@ public class GroceryList {
         }
     }
 
-    public void modifyGroceryItem(int position, String newItem){
+    public void modifyGroceryItem(String currentItem, String newItem){
+        int position = findItem(currentItem);
+        if(position >= 0){
+            modifyGroceryItem(position, newItem);
+        }
+    }
+
+    private void modifyGroceryItem(int position, String newItem){
         // You can also modify a certain element by replacing it with a new element via the set method
         // The new element replaces the old one at the same position as the old one
         groceryList.set(position, newItem);
         System.out.println("Grocery item " + (position + 1) + " has been modified.");
     }
 
-    public void removeGroceryItem(int position){
-        String theItem = groceryList.get(position);
-        groceryList.remove(theItem);
+    public void removeGroceryItem(String item){
+        int position = findItem(item);
+        if(position >= 0){
+            removeGroceryItem(position);
+        }
     }
 
-    // This function will be used to find an item on the grocery list
-    public String findItem(String searchItem){
+    private void removeGroceryItem(int position){
+        groceryList.remove(position);
+    }
+
+    private int findItem(String searchItem){
         // The contains keyword is a boolean method that returns true or false depending on whether or not the item is in the array list
         // boolean exists = groceryList.contains(searchItem);
+        return groceryList.indexOf(searchItem);
+    }
 
-        int position = groceryList.indexOf(searchItem);
+    public boolean onFile(String searchItem){
+        int position = findItem(searchItem);
         if(position >= 0){
-            return groceryList.get(position);
+            return true;
         }
 
-        return null;
+        return false;
     }
 }

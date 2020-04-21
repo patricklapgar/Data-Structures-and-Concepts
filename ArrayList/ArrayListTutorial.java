@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ArrayListTutorial {
@@ -38,6 +39,8 @@ public class ArrayListTutorial {
                 searchForItem();
                 break;
             case 6:
+                processArrayList();
+            case 7:
                 quit = true;
                 break;    
         }
@@ -63,29 +66,45 @@ public class ArrayListTutorial {
  }
 
  public static void modifyItem(){
-    System.out.print("Enter item number: ");
-    int itemNum = scanner.nextInt();
-    scanner.nextLine();
+    System.out.print("Current item name: ");
+    String itemNum = scanner.nextLine();
     System.out.println("Enter replacement item: ");
     String newItem = scanner.nextLine();
-    groceryList.modifyGroceryItem(itemNum-1, newItem);
+    groceryList.modifyGroceryItem(itemNum, newItem);
 }
 
 public static void removeItem(){
-    System.out.print("Enter item number: ");
-    int itemNum = scanner.nextInt();
-    scanner.nextLine();
-    groceryList.removeGroceryItem(itemNum - 1);
+    System.out.print("Enter item: ");
+    String itemNum = scanner.nextLine();
+    groceryList.removeGroceryItem(itemNum);
+    System.out.println("You have now removed " + itemNum + " from your grocery list");
 }
 
 public static void searchForItem(){
     System.out.print("Item to search for: ");
     String searchItem = scanner.nextLine();
-    if(groceryList.findItem(searchItem) != null){
+    if(groceryList.onFile(searchItem)){
         System.out.println("Found " + searchItem + " in your grocery list");
     } else {
         System.out.println(searchItem + " is not in your shopping list");
     }
 }
+
+    public static void processArrayList(){
+        // You can also copy one array list to another array list
+        ArrayList<String> newArray = new ArrayList<String>();
+        // The 'addAll' method essentially moves the contents into a brand new array list
+        newArray.addAll(groceryList.getGroceryList());
+
+        // A cool shortcut to note, you can also add whatever contents you want into the paranthesis. 
+        // This calls on the ArrayList constructor and your content is copied
+        ArrayList<String> nextArray = new ArrayList<String>(groceryList.getGroceryList());
+
+        // If you ever want to convert the array list into a new array, the code to do that is below
+        // Initialize a new array with the size of the array list
+        String[] myArray = new String[groceryList.getGroceryList().size()];
+        // Reassign that newly created array with the converted array list
+        myArray = groceryList.getGroceryList().toArray(myArray);
+    }
 
 }
